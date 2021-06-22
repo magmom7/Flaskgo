@@ -118,8 +118,7 @@ class BoardDAO:
             conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
             cur = conn.cursor()
             try:
-                cur.execute(
-                    "select * from board where USER_ID = :getid order by idx asc", getid=uid)
+                cur.execute("select * from board order by idx asc")
 
                 rows = cur.fetchall()
 
