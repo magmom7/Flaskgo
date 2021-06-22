@@ -14,19 +14,26 @@
 		<div class="page" data-page="1">
 			<div class="page-face cover-page">
 				<p>프로젝트</p>
-				<h1 class="menu-header-title">플라스크</h1>
+				<h1 class="menu-header-title">로그인을 하십시오</h1>
 				<div class="page" data-page="2">
 					<div class="page-face">
 						<ul class="menu-list">
 							<li class="menu-item">
 								<!-- <img class="fit-picture" src="images/lee.jpg" style="width:100px; height:100px;"> -->
 								<div class="menu-item-info">
-									<!-- <form action="/login" method="post">
+									<!-- <form action="/login" method="post"> // 이 주석 지워도 될듯?
 										<input type="text" id="username" name="username" placeholder="이름"><br><br>
 										<button onclick="checkLogin()">로그인</button><br><br>
 									</form> -->
 									<input type="text" id="username" name="username" placeholder="이름"><br><br>
+									<form method="POST"> 
+										<!-- Sends POST request to flask server -->
+										 {{ recaptcha }} 
+										 <!--Refer to 'recaptcha' variable in main.py -->
+									</form>
+									<p>{{ message }}</p> 
 									<button onclick="checkLogin()">로그인</button><br><br>
+										<br><br>
 									<form action='/membership' , method="get">
 										<button>회원가입</button>
 									</form>
@@ -52,9 +59,9 @@
 						console.log(i);
 						if (user_all[i]['user_name'] == document.getElementById("username").value) {
 							var link = '/menu';
-							location.href=link;
+							// location.href=link;  replace하나만 있어도 되지 않을까요? 링크 바뀐뒤에 아래에 open으로 창을 하나 더 열어서 두개가 나옵니다.
 							location.replace(link);
-							window.open(link);
+							// window.open(link);
 						}
 					}
 				}

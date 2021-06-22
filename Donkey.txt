@@ -1,0 +1,29 @@
+1. reCAPTCHA 구현 관련
+    - *** 모듈 flask_recaptcha 라는걸 다운 받아야 돌아감. 아래 코드로 먼저 다운받고 돌리기 바람. *** 
+        pip install flask_recaptcha
+    
+    - 다른 방법이 있는데 js에서 함수 만들어서 신호를 받아야함. 어려워서 다음 기회에.
+
+
+
+2. 맥 oracle db에서 문제점들
+
+    1) 한글 데이터 저장이 안됨
+        - 데이터를 영어로 바꿔서 기능하는것을 확인 하였음
+            => git commit할 때 test.sql에 영어 데이터로 테스트해본 부분은 주석처리 하겠습니다. 신경안써도됨.
+
+    2) cx_Oracle 주소지정 문제
+        - windows에서
+            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+
+        - 맥에서
+            conn = cx_Oracle.connect("scott/tiger@localhost/xe")
+
+        => 위와같이 바꿔야 정상 작동함.
+        => git commit할 때는 windows에 맞게 주석처리 해서 commit하겠음. 신경안써도됨.
+
+    3) cursor()가 sql문을 수행할 때
+        - create table.... 하고 insert....하고 난 다음 cursor를 쓰면 정상적으로 sql문을 못씀.
+            -> sql에서 commit;을 해야 정상작동되는 것을 확인.
+
+
