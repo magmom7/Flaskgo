@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/default.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/ui.css')}}">    
+    
+    <script type="text/javascript">
+    
+        function draw(){
+
+            alert( typeof(document.getElementById('arrData').value) );  //string
+            arrData = document.getElementById('arrData').value;
+            /* JSON.parse() 제약사항
+            - 문자열 내에 단일 따옴표가 있을 경우 실 사용 객체로 변환 불가
+            - 해결책 부득이하게 eval() 로 처리 
+            - 최상의 해결책 : 데이터 구상부터 쌍따옴표로 재구성 요청
+            */ 
+            // arrData = JSON.parse(arrData);
+            
+            arrData = eval(arrData);  // 배열 객체로 변환
+            console.log(typeof(arrData)); // object
+            console.log(arrData[0][0]);  //index로 배열 데이터 활용 가능
+
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+ 
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable(arrData);
+                var options = {
+                    title: '나의 하루 일과'
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        }
+    </script>
+</head>
+<body>
+	<ul class="menu">
+		<li class="menu-item">
+			<a href="/menu" class="menu-link">Home</a>
+		</li>
+		<li class="menu-item">
+			<a href="/todolist" class="menu-link">To Do List</a>
+		</li>
+		<li class="menu-item">
+			<a href="/list" class="menu-link">list</a>
+		</li>
+		<li class="menu-item">
+			<a href="/char2" class="menu-link">Chart</a>
+		</li>
+
+	</ul>
+    <h3> step01 : 구글 차트 만들고 응용하기</h3>
+   
+    
+    <br><hr><br>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+    <input type="hidden" id="arrData" 
+           value="[['Task', 'Hours per Day'],['Work', 11],['Eat', 2],['Commute', 2],['Watch TV', 2],['잠', 1]]">
+
+    <hr color="red">
+    <button onclick="draw()">data 보기</button>
+<!-- 
+    <input type="text" id="arrData2" size="200"
+           value="text --- [['Task', 'Hours per Day'],['Work', 11],['Eat', 2],['Commute', 2],['Watch TV', 2],['잠', 7]]"> -->
+
+    <script>
+        function draw2(){
+            alert(document.getElementById('arrData').value);
+        }
+    </script>
+</body>
+
+</html>
