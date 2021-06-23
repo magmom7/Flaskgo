@@ -129,11 +129,19 @@ def gettext():
 @app.route('/list/showlist', methods=['post'])
 def showtext():
     global uname
-    print(uname)
+
     uid = BoardDAO().getuserID(uname)
-    print(uid[0])
     data = BoardDAO().boardall(uid[0])
 
+    return data
+
+@app.route('/list/showmylist', methods=['post'])
+def showmytext():
+    global uname
+
+    uid = BoardDAO().getuserID(uname)
+    data = BoardDAO().boardmy(uid[0])
+    
     return data
 
 
