@@ -36,9 +36,7 @@ def userinsert():
 
     dto = UserDTO(index_user_counter, request.form.get('user_name'),
                   request.form.get('user_pw'), request.form.get('user_interest'))
-    dao = UserDAO().userinsert(dto)  # 이 dao는 사용이 안됨
-
-    # print("----77-----")
+    dao = UserDAO().userinsert(dto)
 
     return render_template('index.html')
 
@@ -46,12 +44,14 @@ def userinsert():
 @app.route('/login', methods=['post'])
 def userlogin():
     global uname
-    uname = request.form.get('user_name')
-    # print("-"*30)
-    # print(request.form.get('user_name'))
-    # print("-"*30)
+    uname = request.form.get('username')
 
-    return UserDAO().userall()
+    data = UserDAO().userone(request.form.get('username'), request.form.get('userpw'))
+    print(data)
+    if data is False:
+        return render_template('index.html')
+    else:
+        return render_template('menu.html')
 
 
 @app.route('/menu', methods=['get'])
@@ -74,56 +74,55 @@ def getchar2():
     return render_template('char2.html')
 
 
-@app.route('/upload')
-def upload():
-    return render_template('upload.html')
+@app.route('/index2', methods=['get'])
+def getchar3():
+    return render_template('index2.html')
+
+
+@app.route('/board', methods=['get'])
+def getchar4():
+    return render_template('board.html')
 
 
 @app.route('/fileUpload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
-        # 저장할 경로 + 파일명
         f.save(secure_filename(f.filename))
-        return "현재 디렉토리에 - "+f.filename+" - 업로드 성공!!!"
+    return render_template('menu.html')
 
 
 @app.route('/todolist/gettext', methods=['post'])
 def gettext():
     global index_text_counter
     global uname
-    # print(f"로그인 된 이름 : {uname}")
-    # print(type(uname))
+    dao = BoardDAO()
     index_text_counter += 1
-    uid = BoardDAO().getuserID(uname)
-    # print(uid)
-    # print(uid[0])
+    uid = dao.getuserID(uname)
+
     now = datetime.datetime.now()
-    # print(now)
-    # 2021-06-22 12:43:19.673801
+ 
     nowDate = now.strftime('%Y-%m-%d')
-    # print(nowDate)
-    # print(type(nowDate))
-    dto = BoardDTO(index_text_counter, request.form.get(
+
+    dto = dao(index_text_counter, request.form.get(
         'user_title'), request.form.get('user_text'), nowDate, uid[0])
     print(dto)
-    BoardDAO().textinsert(dto)
+    dao.textinsert(dto)
     return request.form.get('user_title')
 
 
 @app.route('/list/showlist', methods=['post'])
 def showtext():
-    # print("in")
     global uname
     print(uname)
     uid = BoardDAO().getuserID(uname)
     print(uid[0])
     data = BoardDAO().boardall(uid[0])
-    # print(data)
+
     return data
 
 
 if __name__ == "__main__":
-    index_user_counter = 0  # 초기값 받아오는 걸로 수정하기!
-    index_text_counter = 0
+    index_user_counter = UserDAO().getIndex()
+    index_text_counter = BoardDAO().getTextIndex()
     app.run(debug=True, host="127.0.0.1", port="5000")
