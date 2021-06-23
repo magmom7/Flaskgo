@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Interactive Dosirak #1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Courgette|Playfair+Display&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="leaflet">
+		<div class="page" data-page="1">
+			<div class="page-face cover-page">
+				<p>프로젝트</p>
+				<h1 class="menu-header-title">로그인을 하십시오</h1>
+				<div class="page" data-page="2">
+					<div class="page-face">
+						<ul class="menu-list">
+							<li class="menu-item">
+								<!-- <img class="fit-picture" src="images/lee.jpg" style="width:100px; height:100px;"> -->
+								<div class="menu-item-info">
+									<form action="/login" method="post">
+										<input type="text" id="username" name="username" placeholder="이름"><br><br>
+										<input type="text" id="userpw" name="userpw" placeholder="비밀번호"><br><br>
+										<button onclick="checkLogin()">로그인</button><br><br>
+									</form>
+									<!-- <input type="text" id="username" name="username" placeholder="이름"><br><br>
+									<input type="text" id="userpw" name="userpw" placeholder="비밀번호"><br><br> -->
+									<form method="POST"> 
+										<!-- Sends POST request to flask server -->
+										 {{ recaptcha }} 
+										 <!--Refer to 'recaptcha' variable in main.py -->
+									</form>
+									<p>{{ message }}</p> 
+									<!-- <form action='/login' , method="post"> -->
+										<!-- <button>로그인</button><br><br>
+									</form> -->
+										<br><br>
+									<form action='/membership' , method="get">
+										<button>회원가입</button>
+									</form>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

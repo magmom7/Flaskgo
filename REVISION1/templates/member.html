@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>input 태그의 type속성 값 submit</title>
+</head>
+
+<body>
+    <!-- <form name="test" action="insert" method="post">  -->
+    <table>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" id="uid" name="uid"></td>
+        </tr>
+
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="text" id="upw" name="upw"></td>
+        </tr>
+
+        <tr>
+            <td>관심</td>
+            <td><input type="radio" id="uinterest" name="uinterest" value='front'>프론트
+                <input type="radio" id="uinterest" name="uinterest" value='back'>백엔드
+                <input type="radio" id="uinterest" name="uinterest" value='analysis'>분석
+            </td>
+        </tr>
+    </table>
+
+    <!-- <input type="submit" value="회원가입"> -->
+    <!-- </form> -->
+    <button onclick="insertUser()">전송</button>
+
+    <script>
+        //직원 등록
+        function insertUser() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var link = '/';
+                    location.href = link;
+                    location.replace(link);
+                    window.open(link);
+                }
+            };
+
+            xhttp.open("POST", "insert");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            var obj_length = document.getElementsByName("uinterest").length;
+            
+            // 여기서부터 수정된 부분
+            var interest;
+            for (var i = 0; i < obj_length; i++) {
+                if (document.getElementsByName("uinterest")[i].checked == true) {
+                    interest = document.getElementsByName("uinterest")[i].value;
+                }
+            }
+            console.log(interest)
+            queryString = "user_name=" + document.getElementById("uid").value + "&user_interest=" + interest + "&user_pw=" + document.getElementById("upw").value;
+            // 여기까지  
+            xhttp.send(queryString);
+        }
+    </script>
+</body>
+
+</html>
