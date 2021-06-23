@@ -25,14 +25,14 @@
 										<input type="text" id="username" name="username" placeholder="이름"><br><br>
 										<button onclick="checkLogin()">로그인</button><br><br>
 									</form> -->
-									<input type="text" id="username" name="username" placeholder="이름"><br><br>
 									<form method="POST"> 
+										<input type="text" id="username" name="username" placeholder="이름"><br><br>
 										<!-- Sends POST request to flask server -->
 										 {{ recaptcha }} 
 										 <!--Refer to 'recaptcha' variable in main.py -->
-									</form>
-									<p>{{ message }}</p> 
-									<button onclick="checkLogin()">로그인</button><br><br>
+										 <p>{{ message }}</p>
+										</form>
+										<button onclick="checkLogin()">로그인</button><br><br>
 										<br><br>
 									<form action='/membership' , method="get">
 										<button>회원가입</button>
@@ -51,13 +51,13 @@
 			const xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					let user_all = JSON.parse(this.responseText);
+					let user_all = JSON.parse(this.responseText); // DB에서 모든 유저의 데이터를 가져온다.
 					console.log(user_all)
 					console.log(typeof (user_all))
 
-					for (i in user_all) {
+					for (i in user_all) { 							//모든유저의 데이터를 -> 웹페이지에서의 id와 비교한다.
 						console.log(i);
-						if (user_all[i]['user_name'] == document.getElementById("username").value) {
+						if (user_all[i]['user_name'] == document.getElementById("username").value) { // 하나라도 일치하는 것이 있으면,
 							var link = '/menu';
 							// location.href=link;  replace하나만 있어도 되지 않을까요? 링크 바뀐뒤에 아래에 open으로 창을 하나 더 열어서 두개가 나옵니다.
 							location.replace(link);

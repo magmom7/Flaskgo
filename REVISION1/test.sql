@@ -1,6 +1,6 @@
 -- 임시로 만든 test 결과 확인
 
-drop table Users; 
+drop table Users CASCADE CONSTRAINT; 
 drop table Board;
 drop sequence seq_user;
 drop sequence seq_board;
@@ -19,6 +19,11 @@ insert into Users values(seq_user.nextval, '이성규', 15,'back');
 insert into Users values(seq_user.nextval, '장동기', 17,'analysis');
 insert into Users values(seq_user.nextval, '장동기', 17,'as');
 
+insert into Users values(seq_user.nextval, 'jihyeon', 13,'front');
+insert into Users values(seq_user.nextval, 'seongkyu', 15,'back');
+insert into Users values(seq_user.nextval, 'donkey', 17,'analysis');
+insert into Users values(seq_user.nextval, 'donkey', 17,'as'); -- 이건 안들어감 
+
 
 create table Board(
     Idx number(3) primary key,
@@ -29,3 +34,5 @@ create table Board(
 );
 
 insert into Board values(seq_board.nextval, '제목', '내용..........', sysdate, 1);
+
+insert into Board values(seq_board.nextval, 'Title', 'content..........', sysdate, 1);

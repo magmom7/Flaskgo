@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask_jwt_extended import *
 from dto import UserDTO, BoardDTO
 from dao import UserDAO, BoardDAO
 import datetime
@@ -9,6 +10,12 @@ app = Flask(__name__)
 app.config['RECAPTCHA_SITE_KEY'] = '6LdI60gbAAAAAO9llS8p0UrBetVojtlG-1kuGm-l'
 app.config['RECAPTCHA_SECRET_KEY'] = '6LdI60gbAAAAAPl2g8q9guBs2lFohFUnNNkdpLSQ'
 recaptcha = ReCaptcha(app)
+
+app.config.update(
+    DEBUG=True,
+    JWT_SECRET_KEY="I'M IML"
+)
+jwt = JWTManager(app)
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -36,9 +43,13 @@ def userinsert():
 
     dto = UserDTO(index_user_counter, request.form.get('user_name'),
                   request.form.get('user_pw'), request.form.get('user_interest'))
-    dao = UserDAO().userinsert(dto)
-
-    return render_template('index.html')
+    
+    if UserDAO().userone(request.form.get('user_name'), request.form.get('user_pw')) == True:
+        return jsonify(result='idexist', messege='this id already exists')
+    else:
+        dao = UserDAO().userinsert(dto)
+        return jsonify(result='signup', messege='signup success')
+        # return render_template('index.html')
 
 
 @app.route('/login', methods=['post'])
@@ -49,9 +60,12 @@ def userlogin():
     data = UserDAO().userone(request.form.get('username'), request.form.get('userpw'))
     print(data)
     if data is False:
-        return render_template('index.html')
+        return jsonify(result='login_fail')
+        # return render_template('index.html')
+        
     else:
-        return render_template('menu.html')
+        return jsonify(result = 200, access_token=create_access_token(identity=uname))
+        # return render_template('menu.html')
 
 
 @app.route('/menu', methods=['get'])

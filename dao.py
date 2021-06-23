@@ -9,7 +9,9 @@ class UserDAO:
     # 사번으로 직원명, 급여를 검색해서 반환
     def userinsert(self, dto):  # 만약 속성값이 30개가 넘는다면 관리하기 힘드므로,,, DTO 객체 통으로 받음
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect("scott/tiger@localhost/xe")
+
             cur = conn.cursor()
             print("===1==")
             try:
@@ -33,8 +35,8 @@ class UserDAO:
     def userall(self):
         data = []
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
-            # conn = cx_Oracle.connect("scott/tiger@localhost/xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect("scott/tiger@localhost/xe")
             cur = conn.cursor()
             try:
                 cur.execute("select * from users")

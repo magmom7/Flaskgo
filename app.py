@@ -51,7 +51,7 @@ def userlogin():
     # print(request.form.get('user_name'))
     # print("-"*30)
 
-    return UserDAO().userall()
+    return UserDAO().userall()  # 모든 유저의 데이터를 가져와서 리턴한다.
 
 
 @app.route('/menu', methods=['get'])

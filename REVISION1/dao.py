@@ -5,10 +5,13 @@ import json
 import collections # 데이터를 어떤 구조로 관리할 것인가를 의미하는 자료구조를 지원하는 library
 
 
+dbconfig = "scott/tiger@localhost/xe"
+
 class UserDAO:
     def userinsert(self, dto): 
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 cur.execute("insert into users values(:user_id, :user_name, :user_pw, :user_interset)", user_id=dto.getId(), user_name=dto.getName(), user_pw=dto.getPw(), user_interset=dto.getInterest())
@@ -27,7 +30,8 @@ class UserDAO:
     def userone(self, username, userpw):
         flag = False
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 print(username)
@@ -62,7 +66,8 @@ class UserDAO:
     def userall(self):
         data=[]
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)  
             cur = conn.cursor()
             try:
                 cur.execute("select * from users where ") 
@@ -93,7 +98,8 @@ class UserDAO:
 
     def getIndex(self):
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 cur.execute("select max(user_id) from users") 
@@ -120,7 +126,8 @@ class BoardDAO:
     
     def textinsert(self, dto): #만약 속성값이 30개가 넘는다면 관리하기 힘드므로,,, DTO 객체 통으로 받음
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 print("in")
@@ -140,7 +147,8 @@ class BoardDAO:
 
     def getuserID(self, name):
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 cur.execute("select user_id from users where user_name = :getname", getname=name)
@@ -163,7 +171,8 @@ class BoardDAO:
     def boardall(self, uid):
         data=[]
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 cur.execute("select * from board order by idx asc") 
@@ -198,8 +207,10 @@ class BoardDAO:
         return data
 
     def getTextIndex(self):
+        data=''
         try:
-            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            # conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            conn = cx_Oracle.connect(dbconfig)
             cur = conn.cursor()
             try:
                 cur.execute("select max(idx) from board") 
