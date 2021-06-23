@@ -31,17 +31,17 @@
 	<div class="container">
 		<h1>List</h1>
 		<br>
-		<button onclick="selectText()">글 목록 보기</button>
+		<button onclick="allText()">글 목록 보기</button>
+		<button onclick="selectText()">내가 글 목록 보기</button>
 		<div id="demo"></div> 
 		<br><hr><br>
+
 		<script>
-			function selectText() {
+			function allText() {
 				const xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						let board_all = JSON.parse(this.responseText);
-						console.log(board_all);
-						console.log(typeof (board_all));
 
 						tab = `<table border="1">
                         <tr><th>번호</th><th>제목</th><th>작성일</th><th>글쓴이</th></tr>`;
@@ -50,12 +50,12 @@
 						let subject
 						let date
 						let writer
-				
+						
 						for (no in board_all) {
 							idx = board_all[no].idx;
 							subject = board_all[no].title;
 							date = board_all[no].date;
-							writer = board_all[no].id;
+							writer = board_all[no].name;
 
 							tab = tab + `
                         <tr>
@@ -74,6 +74,49 @@
 
 				xhttp.open("POST", '/list/showlist');
 				console.log('e');
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				xhttp.send();
+			}
+
+			function selectText() {
+				const xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						let board_all = JSON.parse(this.responseText);
+						console.log(board_all);
+						console.log(typeof (board_all));
+
+						tab = `<table border="1">
+                        <tr><th>번호</th><th>제목</th><th>작성일</th><th>글쓴이</th></tr>`;
+
+						let idx
+						let subject
+						let date
+						let writer
+						
+						for (no in board_all) {
+							idx = board_all[no].idx;
+							subject = board_all[no].title;
+							date = board_all[no].date;
+							writer = board_all[no].name;
+
+							tab = tab + `
+                        <tr>
+                            <td>${idx}</td>
+                            <td>${subject}</td>
+                            <td>${date}</td>
+                            <td>${writer}</td>
+                        </tr>
+                        `;
+						}
+						
+						tab = tab + `</table>`;
+						document.getElementById("demo").innerHTML = tab;
+					}
+				};
+
+				xhttp.open("POST", '/list/showmylist');
 				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 				xhttp.send();
