@@ -1,4 +1,4 @@
-# User table의 crud 로직을 전달하는 클래스 
+# Users table과 Board table의 crud 로직을 전달하는 클래스 
 import cx_Oracle
 from dto import UserDTO, BoardDTO
 import json
@@ -38,15 +38,6 @@ class UserDAO:
 
                 if row:
                     flag = True
-                # print("-"*30)
-                # print(row)
-                # print("-"*30)
-                
-                # data = collections.OrderedDict()
-                # data['user_id'] = row[0]
-                # data['user_name']= row[1]
-                # data['user_secret'] = row[2]
-                # data['user_interest'] = row[3]
 
             except Exception as e: 
                 print(e) 
@@ -145,10 +136,8 @@ class BoardDAO:
             cur = conn.cursor()
             try:
                 cur.execute("select user_id from users where user_name = :getname", getname=name)
-                # print("ininiin")
                 row = cur.fetchone()
-                # print("---row---", row)
-                #data = '{"ename":"smith", "sal":800.0}'
+                
                 return row
             
             except Exception as e: 
@@ -167,33 +156,29 @@ class BoardDAO:
             conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
             cur = conn.cursor()
             try:
-                cur.execute("select * from board order by idx asc") 
+                cur.execute("select idx, title, content, input_date, user_name from board,users where board.user_id = users.user_id  order by idx asc") 
                 
                 rows = cur.fetchall()
                 
-                # json 포멧으로 가공 : empno, ename, sal key - json배열
-                # 다양한 방법 : 저장하는 순서를 유지하는 구조의 dict 클래스
-                v = [] # v변수에 python 구조의 dict 구조로 저장 -> data 변수로 json 포멧으로 변환
+                v = [] 
                 for row in rows:
-                    d = collections.OrderedDict()# 저장하는 순서인지하는
+                    d = collections.OrderedDict()
                     d['idx'] = row[0]
                     d['title']= row[1]
                     d['content'] = row[2]
                     d['date'] = row[3]
-                    d['id'] = row[4]
+                    d['name'] = row[4]
                     v.append(d)
                 
-                data = json.dumps(v, ensure_ascii=False) #json 포멧으로 완벽하게
+                data = json.dumps(v, ensure_ascii=False) 
                 print(data) 
-                # print("*"*30)
-                # print(type(data)) # <class 'str'>
-                # print("*"*30)
-            except Exception as e: # 예외..
-                print(e) # print e
+               
+            except Exception as e: 
+                print(e) 
         except Exception as e: 
             print(e)
         finally:
-            cur.close() # 자원 반환
+            cur.close()
             conn.close()
 
         return data
@@ -210,11 +195,7 @@ class BoardDAO:
                     data = 0
                 else:
                     data = row[0]
-                # print("$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                # print(row)
-                # print(type(row))
-                # print(row[0])
-                # print(type(row[0]))
+
             except Exception as e: # 예외..
                 print(e) # print e
 
@@ -224,8 +205,41 @@ class BoardDAO:
         finally:
             cur.close() # 자원 반환
             conn.close()
-        # print(data)
+        
         return data
+
+    def boardmy(self, uid):
+        data=[]
+        try:
+            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            cur = conn.cursor()
+            try: 
+                cur.execute("select idx, title, content, input_date, user_name from board,users where board.user_id = users.user_id and board.user_id = :id order by idx asc", id = uid) 
+                rows = cur.fetchall()
+               
+                v = [] 
+                for row in rows:
+                    d = collections.OrderedDict()
+                    d['idx'] = row[0]
+                    d['title']= row[1]
+                    d['content'] = row[2]
+                    d['date'] = row[3]
+                    d['name'] = row[4]
+                    v.append(d)
+                
+                data = json.dumps(v, ensure_ascii=False) 
+                print(data) 
+               
+            except Exception as e: 
+                print(e) 
+        except Exception as e: 
+            print(e)
+        finally:
+            cur.close()
+            conn.close()
+
+        return data
+
 # if __name__ == "__main__":
 #      dao = EmpDAO()
 # #     dto = EmpDTO(2, 't', 20)
