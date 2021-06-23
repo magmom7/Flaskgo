@@ -96,18 +96,19 @@ def upload_file():
 def gettext():
     global index_text_counter
     global uname
-    dao = BoardDAO()
+
     index_text_counter += 1
+    dao = BoardDAO()
     uid = dao.getuserID(uname)
 
     now = datetime.datetime.now()
  
     nowDate = now.strftime('%Y-%m-%d')
 
-    dto = dao(index_text_counter, request.form.get(
+    dto = BoardDTO(index_text_counter, request.form.get(
         'user_title'), request.form.get('user_text'), nowDate, uid[0])
-    print(dto)
-    dao.textinsert(dto)
+
+    BoardDAO().textinsert(dto)
     return request.form.get('user_title')
 
 
