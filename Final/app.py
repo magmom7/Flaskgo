@@ -36,7 +36,7 @@ def userinsert():
 
     dto = UserDTO(index_user_counter, request.form.get('user_name'),
                   request.form.get('user_pw'), request.form.get('user_interest'))
-    dao = UserDAO().userinsert(dto)
+    dao = UserDAO().userinsert(dto)  # 이 dao는 사용이 안됨
 
     # print("----77-----")
 
@@ -74,14 +74,9 @@ def getchar2():
     return render_template('char2.html')
 
 
-@app.route('/index2', methods=['get'])
-def getchar3():
-    return render_template('index2.html')
-
-
-@app.route('/board', methods=['get'])
-def getchar4():
-    return render_template('board.html')
+@app.route('/upload')
+def upload():
+    return render_template('upload.html')
 
 
 @app.route('/fileUpload', methods=['GET', 'POST'])
@@ -90,7 +85,7 @@ def upload_file():
         f = request.files['file']
         # 저장할 경로 + 파일명
         f.save(secure_filename(f.filename))
-    return render_template('menu.html')
+        return "현재 디렉토리에 - "+f.filename+" - 업로드 성공!!!"
 
 
 @app.route('/todolist/gettext', methods=['post'])
@@ -129,6 +124,6 @@ def showtext():
 
 
 if __name__ == "__main__":
-    index_user_counter = UserDAO().getIndex()
-    index_text_counter = BoardDAO().getTextIndex()
+    index_user_counter = 0  # 초기값 받아오는 걸로 수정하기!
+    index_text_counter = 0
     app.run(debug=True, host="127.0.0.1", port="5000")
