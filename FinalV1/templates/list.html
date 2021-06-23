@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<title>할 일</title>
+	<link href="https://fonts.googleapis.com/css?family=Courgette|Playfair+Display&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/default.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/ui.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/tabless.css')}}">
+	
+
+</head>
+
+<body>
+	<ul class="menu">
+		<li class="menu-item">
+			<a href="/menu" class="menu-link">Home</a>
+		</li>
+		<li class="menu-item">
+			<a href="/todolist" class="menu-link">To Do List</a>
+		</li>
+		<li class="menu-item">
+			<a href="/list" class="menu-link">list</a>
+		</li>
+		<li class="menu-item">
+			<a href="/char2" class="menu-link">Chart</a>
+		</li>
+	</ul>
+	<div class="container">
+		<h1>List</h1>
+		<br>
+		<button onclick="selectText()">글 목록 보기</button>
+		<br><hr><br>
+		<div id="demo"></div> 
+		<br>
+		<script>
+			function selectText() {
+				const xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						let board_all = JSON.parse(this.responseText);
+						console.log(board_all);
+						console.log(typeof (board_all));
+
+						tab = `<table border="1">
+                        <tr><th>번호</th><th>제목</th><th>작성일</th><th>글쓴이</th></tr>`;
+
+						let idx
+						let subject
+						let date
+						let writer
+				
+						for (no in board_all) {
+							idx = board_all[no].idx;
+							subject = board_all[no].title;
+							date = board_all[no].date;
+							writer = board_all[no].id;
+
+							tab = tab + `
+                        <tr>
+                            <td>${idx}</td>
+                            <td>${subject}</td>
+                            <td>${date}</td>
+                            <td>${writer}</td>
+                        </tr>
+                        `;
+						}
+						
+						tab = tab + `</table>`;
+						document.getElementById("demo").innerHTML = tab;
+					}
+				};
+
+				xhttp.open("POST", '/list/showlist');
+				console.log('e');
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				xhttp.send();
+			}
+		</script>
+</body>
+
+</html>
