@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>할 일</title>
+  <link href="https://fonts.googleapis.com/css?family=Courgette|Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/default.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/ui.css')}}">
+  <script src="{{url_for('static', filename='js/authlink.js') }}"></script>
+</head>
+
+<body onload="jwtuse()" onchange="jwtuse()">
+  <ul class="menu">
+    <li class="menu-item">
+      <a href="/menu" class="menu-link">Home</a>
+    </li>
+    <li class="menu-item">
+      <a href="/todolist" class="menu-link">To Do List</a>
+    </li>
+    <li class="menu-item">
+      <a href="/list" class="menu-link">list</a>
+    </li>
+    <li class="menu-item">
+      <a href="/char2" class="menu-link">Chart</a>
+    </li>
+  </ul>
+  <div class="container">
+    <h1>To Do List</h1>
+    <br>
+    <div class="input-group mb-3" style="width: 50%;">
+      <input type="text" class="form-control" id="input_title" placeholder="제목">
+      <!-- <button class="btn btn-outline-secondary" type="button" id="button"></button> -->
+    </div>
+    <!-- <ul class="list-group" style="width: 50%;" id="list"> -->
+    <input type="text" class="list-group" style="width: 50%;" id="input_txt" placeholder="내용">
+    </ul>
+    <button onclick="getText()" class="btn btn-outline-secondary" type="button" id="button">등록</button>
+  </div>
+  <div class="container">
+		<br><hr><br>
+            <form action = "http://localhost:5000/fileUpload" method = "POST"
+            enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+                <input type = "submit"/>
+            </form>
+    </div>
+  <script>
+    function getText() {
+            let token = localStorage.getItem("jwt-auth-token");
+            console.log(token)
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var link = '/todolist';
+                    location.href=link;
+                    location.replace(link);
+                    window.open(link);
+                }
+            };
+
+            xhttp.open("POST", "/todolist/gettext");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("Authorization", "Bearer " + token);
+           
+            queryString = "user_title="+document.getElementById("input_title").value+"&user_text="+document.getElementById("input_txt").value;
+            xhttp.send(queryString);
+  
+        }
+  </script>
+</body>
+
+</html>
