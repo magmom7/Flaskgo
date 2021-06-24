@@ -7,9 +7,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Courgette|Playfair+Display&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
-	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/default.css')}}">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/ui.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/tabless.css')}}">
 
 </head>
 
@@ -22,14 +22,14 @@
 			<a href="/todolist" class="menu-link">To Do List</a>
 		</li>
 		<li class="menu-item">
-			<a href="/list" class="menu-link">list</a>
+			<a href="/list" class="menu-link">게시판</a>
 		</li>
 		<li class="menu-item">
 			<a href="/char2" class="menu-link">Chart</a>
 		</li>
 	</ul>
 	<div class="container">
-		<h1>List</h1>
+		<h1>게시판</h1>
 		<br>
 		<button onclick="allText()">글 목록 보기</button>
 		<button onclick="selectText()">내가 글 목록 보기</button>
