@@ -1,0 +1,30 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    width: 70%;
+}
+.demo {
+    display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+td{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    border: 1px solid #dddddd;
+    background-color: gold;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: wheat;
+}
