@@ -13,7 +13,7 @@ recaptcha = ReCaptcha(app)
 
 app.config.update(
     DEBUG=True,
-    JWT_SECRET_KEY="I'M IML"
+    JWT_SECRET_KEY="donkeyyy"
 )
 jwt = JWTManager(app)
 
@@ -54,7 +54,7 @@ def userinsert():
 
 @app.route('/login', methods=['post'])
 def userlogin():
-    global uname
+
     uname = request.form.get('username')
 
     data = UserDAO().userone(request.form.get('username'), request.form.get('userpw'))
@@ -116,9 +116,11 @@ def upload_file():
 
 
 @app.route('/todolist/gettext', methods=['post'])
+@jwt_required()
 def gettext():
     global index_text_counter
-    global uname
+    uname = get_jwt_identity()
+    print(uname)
 
     index_text_counter += 1
     dao = BoardDAO()
@@ -135,9 +137,10 @@ def gettext():
     return request.form.get('user_title')
 
 
-@app.route('/list/showlist', methods=['post'])
+@app.route('/list/showlist', methods=['GET','post'])
+@jwt_required()
 def showtext():
-    global uname
+    uname = get_jwt_identity()
     print(uname)
     uid = BoardDAO().getuserID(uname)
     print(uid[0])

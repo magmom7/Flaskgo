@@ -50,6 +50,7 @@
     </div>
   <script>
     function getText() {
+            let token = localStorage.getItem("jwt-auth-token");
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -62,6 +63,7 @@
 
             xhttp.open("POST", "/todolist/gettext");
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("Authorization", "Bearer " + token);
             
             queryString = "user_title="+document.getElementById("input_title").value+"&user_text="+document.getElementById("input_txt").value;
             console.log(queryString);

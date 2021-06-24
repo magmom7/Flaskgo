@@ -37,6 +37,7 @@
 		<br><hr><br>
 		<script>
 			function selectText() {
+				let token = localStorage.getItem("jwt-auth-token");
 				const xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
@@ -75,7 +76,8 @@
 
 				xhttp.open("POST", '/list/showlist');
 				console.log('e');
-				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				// xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhttp.setRequestHeader("Authorization", "Bearer " + token);
 
 				xhttp.send();
 			}

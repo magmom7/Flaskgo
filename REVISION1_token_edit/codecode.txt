@@ -1,0 +1,25 @@
+-------script에서
+
+let token = localStorage.getItem("jwt-auth-token");
+
+xhttp.setRequestHeader("Authorization", "Bearer " + token);
+
+
+
+
+
+---------------------------------------
+
+-------app.py에서
+
+@jwt_required()
+
+uname = get_jwt_identity()
+
+
+
+
+
+
+
+
