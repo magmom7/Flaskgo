@@ -7,3 +7,5 @@ Final1.3이 최종본입니다.
 pip install flask_jwt_extended 
 
 pip install Flask-reCaptcha
+
+을 하고 실행하셔야합니다.
