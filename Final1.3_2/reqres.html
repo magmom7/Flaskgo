@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function myAjax() {
+
+            const xhttp = new XMLHttpRequest();
+                        
+            xhttp.onload = function () {
+                
+                    const data= this.responseText;   
+                
+                    document.getElementById("demo").innerHTML = data;
+                    
+                    data1 = JSON.parse(data); 
+                    document.getElementById('uname').value = data1.name;
+                    document.getElementById('uage').value = data1.age;
+
+                    
+
+
+                    function myAjax() {
+                        const xhttp = new XMLHttpRequest(); 
+                        xhttp.onreadystatechange = function () {  
+                            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                console.log(xhttp.responseText) 
+                                data =xhttp.responseText; 
+                                
+                                data=JSON.parse(data); 
+                                document.getElementById("uname").value =data.name;
+                                document.getElementById("uage").value =data.age;
+            
+
+
+
+
+
+    </script>
+</body>
+</html>
+        function myAjax() {
+            //비동기 통신 객체
+            const xhttp = new XMLHttpRequest();
+            
+            //정상 응답이 완료 경우에 한해서만 자동 실행되는 로직
+            xhttp.onload = function () {
+                
+                    const data= this.responseText;   //Returns the response data as a string 문자열
+                
+                    document.getElementById("demo").innerHTML = data;
+                    
+                    data1 = JSON.parse(data); //key로 value 사용 가능한 json 객체로 변환 
+                    document.getElementById('uname').value = data1.name;
+                    document.getElementById('uage').value = data1.age;
+
+                    // console.log(typeof(data)); //string
+                    //strig -> json 객체로 전환
+                    // console.log( typeof( JSON.parse(data) ) ) ;
+                    // data = JSON.parse(data);
+                    // console.log(data.name);
+                
+
+
+
+
+
+    
+                    function myAjax() {
+                        const xhttp = new XMLHttpRequest(); // new XMLHttpRequest(): Creates a new XMLHttpRequest object
+                        //console.log(xhttp.readyState); //0 :  request not initialized :current state of the request
+                        xhttp.onreadystatechange = function () {  // onreadystatechange: Defines a function to be called when the readyState property changes
+                            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                console.log(xhttp.responseText) //Returns the response data as a string 문자열
+                                data =xhttp.responseText; 
+                                //console.log(typeof(JSON.parse(data))); object 객체로 전환
+                                // document.getElementById("demo").innerHTML =data;
+                                // //////////console.log(xhttp.readyState);
+                                data=JSON.parse(data); //key로 value 사용 가능한 json 객체로 변환 
+                                document.getElementById("uname").value =data.name;
+                                document.getElementById("uage").value =data.age;
+            

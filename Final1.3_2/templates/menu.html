@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>main</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/ui.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/indexui.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/default.css')}}">
+	<script src="{{url_for('static', filename='js/authlink.js') }}"></script>
+	
+</head>
+<body onload="jwtuse()">
+	<div class="page">
+		<header class="header">
+			<h1 class="website-title"><p>😀꼬깃꼬깃😀</p></h1>
+			<p class="user-name">안녕하세요. 멋진 </p>
+			<div id="jwtdiv" style="padding:0 10px;"></div>
+			<p>  님!! (이름을 토큰으로 받아온거임ㅋㅋ)</p>
+			<form class="search-form">
+				<input type="search">
+				<input type="submit" value="검색">
+			</form>
+			<a href="/index2" target='_blank'><p>🐥</p></a>
+			<a href="mailto:magmom95@naver.com?Subject=요렇게 제가 원하는 메일이 뜨져." target="_top"><p>📬</p></a>
+			<a href="/index2" target='_blank'><p>🐥</p></a>
+		</header>
+
+		<ul class="menu">
+			<li class="menu-item">
+				<a href="/menu" class="menu-link">Home</a>
+			</li>
+			<li class="menu-item">
+				<a href="/todolist" class="menu-link" >To Do List</a>
+			</li>
+			</li><li class="menu-item">
+				<a href="/list" class="menu-link">게시판</a>
+			</li>
+			<li class="menu-item">
+				<button onclick="jwttodolist()" class="menu-link">가짜버튼</button>
+				<!-- <a onclick="jwttodolist()" class="menu-link" >가짜링크</a> -->
+			</li>
+			<li class="menu-item">
+				<a href="/char2" class="menu-link">Chart</a>
+			</li>
+		</ul>
+		
+
+		<section class="primary">		
+			<ul class="card-list">
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/lee.jpg);"></figure>
+					<div class="card-desc"><a href="/board" target="_blank">
+						이번달 코딩 수상작품!
+					</a></div>
+				</li>
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/css.png);"></figure>
+					<div class="card-desc"><a href="https://studiomeal.com/archives/533" target="_blank">
+						Grid에 관한 오해 “Grid는 인터넷 익스플로러(이하 IE)에서 지원하지 않기 때문에, 우리나라에서는 그림의 떡이다.”아닙니다. IE 10과 11에서도 구버전 스펙을 지원을 하기 때문에 좀 귀찮기는 해도 지원할 방법이 있습니다. 분명 한계는 있지..
+					</a></div>
+				</li>
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/html.png);"></figure>
+					<div class="card-desc"><a href="https://opentutorials.org/course/3084" target="_blank">
+						이 여행을 시작하기에 앞서서 한가지 준비가 필요한데요. 바로 우리들의 상상력입니다.
+						지금부터 여러분은 자신을 남의 문제를 통해서 코딩을 배우려는 학생이 아니라
+						나의 문제를 코딩으로 해결하려는 엔지니어라고 상상해주세요.
+					</a></div>
+				</li>
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/flask.png);"></figure>
+					<div class="card-desc"><a href="http://hleecaster.com/flask-introduction/" target="_blank">
+						Flask는 웹 애플리케이션 개발을 위한 파이썬 프레임워크다. 물론 파이썬으로 웹 개발을 할 때 많이 쓰이는 프레임워크로 가장 유명한 것은 Django(장고)인데, 
+						Django는 너무 무겁고 기능이 많아서 복잡하다. 
+					</a></div>
+				</li>
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/playdata.png);"></figure>
+					<div class="card-desc"><a href="https://playdata.io/" target="_blank">
+						영상 데이터 기반 인공지능 서비스 개발자 과정 (6기) 모집
+					</a></div>
+				</li>
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/dacon.png);"></figure>
+					<div class="card-desc"><a href="https://playdata.io/" target="_blank">
+						DACON이란? 현미경은 연못에 있는 물 한 방울에 우리가 볼 수 있다고 생각했던 것보다 많은 것이 들어 있음을 보여줍니다.
+						망원경은 밤하늘에 우리가 볼 수 있다고 생각했던 것보다 많은 것이 있음을 보여줬습니다.
+					</a></div>
+				</li>
+				<li class="card-item">
+					<figure class="card-image" style="background-image: url(/static/images/kaggle.png);"></figure>
+					<div class="card-desc"><a href="https://www.kaggle.com/" target="_blank">
+						오늘은 캐글(Kaggle) 사이트에 대해서 소개하려고 한다. 아마 데이터 사이언스, 머신러닝에 대해 관심이 있는 사람이라면 이미 많이 들어봤을 것이다.
+					</a></div>
+				</li>
+			</ul>
+		</section>
+		<aside class="secondary secondary-a">
+			<ul class="user-list friend-list">
+				<li class="user-item friend-item">
+					<figure class="user-photo" style="background-image: url(/static/images/2user.jpeg);"></figure>
+					<p class="user-name">
+						이성규
+					</p>
+				</li>
+				<li class="user-item friend-item">
+					<figure class="user-photo" style="background-image: url(/static/images/3user.jpg);"></figure>
+					<p class="user-name">
+						장동기
+					</p>
+				</li>
+				<li class="user-item friend-item">
+					<figure class="user-photo" style="background-image: url(/static/images/1user.jpg);"></figure>
+					<p class="user-name">
+						유지현
+					</p>
+				</li>
+			</ul>
+		</aside>
+
+		<aside class="secondary secondary-b">
+			<ul class="user-list">
+				<li>
+					<img class="picture" src="/static/images/go.png" style="height: 1100px;" >			
+				</li>
+			</ul>
+		</aside>
+		<footer class="footer">
+			<a href='tel:010-9962-4852'><p>📞</p></a>
+		</footer>
+	</div>
+	</div>
+</body>
+</html>
