@@ -9,3 +9,5 @@ pip install flask_jwt_extended
 pip install Flask-reCaptcha
 
 을 하고 실행하셔야합니다.
+
+https://drive.google.com/file/d/1q5h8cbXYbuQtF7UN7zokaP97yuwtz1va/view?usp=sharing
