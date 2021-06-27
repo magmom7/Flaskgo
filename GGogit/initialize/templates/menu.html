@@ -12,7 +12,7 @@
 	<script src="{{url_for('static', filename='js/authlink.js') }}"></script>
 	
 </head>
-<body onload="jwtuse()" onchange="jwtuse()">
+<body onload="jwtuse()">
 	<div class="page">
 		<header class="header">
 			<h1 class="website-title"><p>😀꼬깃꼬깃😀</p></h1>
@@ -28,8 +28,6 @@
 			<a href="/index2" target='_blank'><p>🐥</p></a>
 		</header>
 
-		<button type="link">이버튼은 링크입니다.</button>
-		<form action="" enctype="application/x-www-form-urlencoded"></form>
 		<ul class="menu">
 			<li class="menu-item">
 				<a href="/menu" class="menu-link">Home</a>
@@ -41,12 +39,14 @@
 				<a href="/list" class="menu-link">게시판</a>
 			</li>
 			<li class="menu-item">
+				<button onclick="jwttodolist()" class="menu-link">가짜버튼</button>
+				<!-- <a onclick="jwttodolist()" class="menu-link" >가짜링크</a> -->
+			</li>
+			<li class="menu-item">
 				<a href="/char2" class="menu-link">Chart</a>
 			</li>
-			
 		</ul>
-
-		<a onclick="jwttodolist()">가짜링크를 만들어봄</a>
+		
 
 		<section class="primary">		
 			<ul class="card-list">

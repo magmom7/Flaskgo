@@ -1,0 +1,9 @@
+
+git mv ./Final1.3/app.py ./Final1.3/initialize/app.py 
+git mv ./Final1.3/dao.py ./Final1.3/initialize/dao.py 
+git mv ./Final1.3/dto.py ./Final1.3/initialize/dto.py 
+git mv ./Final1.3/static ./Final1.3/initialize/static
+git mv ./Final1.3/templates ./Final1.3/initialize/templates 
+git mv ./Final1.3/reqres.html ./Final1.3/initialize/reqres.html 
+git mv ./Final1.3/README.md ./Final1.3/initialize/README.md 
+git mv ./Final1.3/test.sql ./Final1.3/initialize/test.sql 
